@@ -1,0 +1,118 @@
+{
+  "info": {
+    "name": "Administracion - Restaurantes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3005" },
+    { "key": "restaurantUserId", "value": "1" },
+    { "key": "restaurantId", "value": "1" },
+    { "key": "collaboratorUserId", "value": "2" }
+  ],
+  "item": [
+    {
+      "name": "Registrar restaurante con owner",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"restaurant\": {\n    \"nombre\": \"Pizza Central {{$timestamp}}\",\n    \"descripcion\": \"Pizzeria artesanal\",\n    \"telefono\": \"5555-1111\",\n    \"direccion\": \"Zona 1\"\n  },\n  \"owner\": {\n    \"firstName\": \"Luis\",\n    \"lastName\": \"Perez\",\n    \"email\": \"dueno{{$timestamp}}@pizza.com\",\n    \"phone\": \"5555-2222\",\n    \"passwordRaw\": \"PasswordSeguro123\"\n  }\n}"
+        },
+        "url": "{{baseUrl}}/api/restaurants/register"
+      }
+    },
+    {
+      "name": "Mis restaurantes",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{restaurantUserId}}" }],
+        "url": "{{baseUrl}}/api/restaurants/me"
+      }
+    },
+    {
+      "name": "Detalle restaurante",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{restaurantUserId}}" }],
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}"
+      }
+    },
+    {
+      "name": "Actualizar restaurante",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{restaurantUserId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Pizza Central Actualizada\",\n  \"descripcion\": \"Pizzeria actualizada\",\n  \"telefono\": \"5555-3333\",\n  \"direccion\": \"Zona 4\"\n}"
+        },
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}"
+      }
+    },
+    {
+      "name": "Activar/desactivar restaurante",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{restaurantUserId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"active\": true\n}"
+        },
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}/status"
+      }
+    },
+    {
+      "name": "Listar colaboradores",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{restaurantUserId}}" }],
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}/users"
+      }
+    },
+    {
+      "name": "Crear colaborador",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{restaurantUserId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Lopez\",\n  \"email\": \"operador{{$timestamp}}@pizza.com\",\n  \"phone\": \"5555-4444\",\n  \"passwordRaw\": \"PasswordSeguro123\",\n  \"tipoAcceso\": \"operador\"\n}"
+        },
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}/users"
+      }
+    },
+    {
+      "name": "Actualizar acceso colaborador",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{restaurantUserId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipoAcceso\": \"solo_lectura\",\n  \"active\": true\n}"
+        },
+        "url": "{{baseUrl}}/api/restaurants/{{restaurantId}}/users/{{collaboratorUserId}}/access"
+      }
+    },
+    {
+      "name": "Broker valida acceso restaurante",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/internal/restaurants/{{restaurantId}}/users/{{restaurantUserId}}/access"
+      }
+    }
+  ]
+}

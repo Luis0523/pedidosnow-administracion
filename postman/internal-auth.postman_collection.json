@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "Administracion - Internal Auth Broker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3005" }
+  ],
+  "item": [
+    {
+      "name": "Broker verifica usuario para login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"carlos.demo.registro@example.com\",\n  \"password\": \"MiPasswordSegura123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/internal/auth/verify-user"
+      }
+    }
+  ]
+}

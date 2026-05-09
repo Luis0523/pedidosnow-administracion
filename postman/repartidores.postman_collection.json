@@ -1,0 +1,138 @@
+{
+  "info": {
+    "name": "Administracion - Repartidores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3005" },
+    { "key": "userId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Registrar repartidor",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Mendez\",\n  \"birthDate\": \"1995-08-14\",\n  \"nationality\": \"Guatemalteca\",\n  \"department\": \"Quetzaltenango\",\n  \"address\": \"Zona 2, Quetzaltenango\",\n  \"phone\": \"5555-1234\",\n  \"email\": \"carlos.demo{{$timestamp}}@example.com\",\n  \"cui\": \"{{$timestamp}}\",\n  \"dpiPhotoBase64\": \"data:image/jpeg;base64,/9j/demo\",\n  \"nit\": \"9876543-2\",\n  \"profilePhotoBase64\": \"data:image/jpeg;base64,/9j/demo\",\n  \"vehicleType\": \"MOTORCYCLE\",\n  \"licensePlate\": \"M-{{$timestamp}}\",\n  \"bankAccountType\": \"SAVINGS\",\n  \"bankId\": \"BANCO_INDUSTRIAL_01\",\n  \"passwordRaw\": \"MiPasswordSegura123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/register"
+      }
+    },
+    {
+      "name": "Consultar estado de cuenta",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{userId}}" }],
+        "url": "{{baseUrl}}/api/couriers/me/account-status"
+      }
+    },
+    {
+      "name": "Actualizar estado de cuenta - ACTIVE",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountStatus\": \"ACTIVE\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me/account-status"
+      }
+    },
+    {
+      "name": "Actualizar estado de cuenta - BLOCKED",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountStatus\": \"BLOCKED\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me/account-status"
+      }
+    },
+    {
+      "name": "Consultar disponibilidad",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{userId}}" }],
+        "url": "{{baseUrl}}/api/couriers/me/availability"
+      }
+    },
+    {
+      "name": "Actualizar disponibilidad - AVAILABLE",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"operationalStatus\": \"AVAILABLE\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me/availability"
+      }
+    },
+    {
+      "name": "Actualizar disponibilidad - INACTIVE",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"operationalStatus\": \"INACTIVE\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me/availability"
+      }
+    },
+    {
+      "name": "Consultar perfil",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "x-user-id", "value": "{{userId}}" }],
+        "url": "{{baseUrl}}/api/couriers/me"
+      }
+    },
+    {
+      "name": "Actualizar perfil",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"address\": \"Zona 4, Quetzaltenango\",\n  \"phone\": \"5555-9999\",\n  \"vehicleType\": \"MOTORCYCLE\",\n  \"licensePlate\": \"M-999XYZ\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me"
+      }
+    },
+    {
+      "name": "Enviar solicitud de desbloqueo",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-user-id", "value": "{{userId}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reason\": \"Solicito revision para desbloqueo de mi cuenta.\"\n}"
+        },
+        "url": "{{baseUrl}}/api/couriers/me/unlock-request"
+      }
+    }
+  ]
+}
