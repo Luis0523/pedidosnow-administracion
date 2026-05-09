@@ -13,7 +13,7 @@ const start = async () => {
   await runMigrations();
   await runSeeders();
   console.log('Base de datos sincronizada.');
-  console.log(`Version del proyecto: ${config.version}`);
+  console.log(`PEDIDOSNOW ADMINISTRACION DEPLOY ACTIVO - ${config.version}`);
 
   server = app.listen(config.port, () => {
     console.log(`Administracion service listening on port ${config.port}`);

@@ -359,3 +359,122 @@ Tambien se probo el registro de repartidor contra la base de datos y respondio c
 - Ajustar payload final esperado por Broker cuando ya este implementado.
 - Implementar manejo de invitaciones para colaboradores de restaurantes si se requiere no enviar password manual.
 - Revisar si los restaurantes deben tener mas campos fiscales/comerciales.
+
+## Preparacion para Railway
+
+Se preparo el proyecto para desplegarlo en Railway usando Docker.
+
+Archivos agregados:
+
+- `Dockerfile`
+- `.dockerignore`
+- `src/db/migrations.js`
+- `src/db/seeders.js`
+
+Archivos modificados:
+
+- `server.js`
+- `src/config/index.js`
+- `src/app.js`
+- `syncDatabase.js`
+- `populateDatabase.js`
+- `.env.copy`
+
+### Arranque del Servicio
+
+El `server.js` ahora ejecuta automaticamente antes de levantar Express:
+
+1. Prueba de conexion a base de datos con `SELECT 1`.
+2. Migraciones pendientes.
+3. Seeders.
+4. Logs de estado.
+5. Arranque del servidor HTTP.
+
+Logs esperados al iniciar:
+
+```text
+Base de datos conectada.
+Migracion ejecutada: <archivo>.sql
+Seeder ejecutado: <archivo>.sql
+Base de datos sincronizada.
+Version del proyecto: V1
+Administracion service listening on port <PORT>
+```
+
+Si las migraciones ya fueron ejecutadas, no se repiten porque se controlan con `schema_migrations`.
+
+Los seeders actuales son idempotentes porque usan `ON CONFLICT`, por lo que pueden ejecutarse en cada restart/deploy sin duplicar roles ni bancos.
+
+### Version del Proyecto
+
+Se agrego soporte para:
+
+```env
+APP_VERSION=V1
+```
+
+La version por defecto es `V1` si la variable no existe.
+
+El endpoint `/health` ahora responde tambien la version:
+
+```json
+{
+  "status": "ok",
+  "service": "administracion",
+  "version": "V1"
+}
+```
+
+### Variables para Railway
+
+En Railway no se debe subir `.env`. El archivo `.env.copy` queda solo como plantilla de referencia.
+
+Variables recomendadas para Railway:
+
+```env
+DATABASE_URL=${{Postgres.DATABASE_URL}}
+DB_SSL=true
+NODE_ENV=production
+APP_VERSION=V1
+BROKER_URL=https://url-del-broker
+PASSWORD_SALT_ROUNDS=10
+```
+
+Si se usa `DATABASE_URL`, no es necesario configurar:
+
+```env
+DB_HOST
+DB_PORT
+DB_NAME
+DB_USER
+DB_PASSWORD
+```
+
+Railway normalmente inyecta `PORT` automaticamente.
+
+### Verificaciones Realizadas
+
+Se verifico que la app carga correctamente con:
+
+```bash
+node -e "require('./src/app'); console.log('app loaded')"
+```
+
+Resultado:
+
+```text
+app loaded
+```
+
+Tambien se valido el build Docker con:
+
+```bash
+docker build -t pedidos-administracion:railway .
+```
+
+Resultado:
+
+```text
+Successfully built
+Successfully tagged pedidos-administracion:railway
+```
