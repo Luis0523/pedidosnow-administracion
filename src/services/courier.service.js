@@ -103,6 +103,8 @@ const registerCourier = async (payload) => {
   await ensureUniqueCourierData(normalizedPayload);
 
   const passwordHash = await hashPassword(normalizedPayload.passwordRaw);
+  let createdUser;
+  let createdCourier;
 
   await withTransaction(async (client) => {
     const courierRole = await usuarioModel.findRoleByCode('repartidor', client);
@@ -116,7 +118,7 @@ const registerCourier = async (payload) => {
       throw new BadRequestError('El banco seleccionado no existe o esta inactivo.');
     }
 
-    const user = await usuarioModel.create(
+    createdUser = await usuarioModel.create(
       {
         rolId: courierRole.id,
         nombre: normalizedPayload.firstName,
@@ -128,9 +130,9 @@ const registerCourier = async (payload) => {
       client
     );
 
-    const courier = await courierModel.create(
+    createdCourier = await courierModel.create(
       {
-        usuarioId: user.id,
+        usuarioId: createdUser.id,
         cui: normalizedPayload.cui,
         nit: normalizedPayload.nit,
         nationality: normalizedPayload.nationality,
@@ -145,7 +147,7 @@ const registerCourier = async (payload) => {
 
     await courierModel.createVehicle(
       {
-        courierId: courier.id,
+        courierId: createdCourier.id,
         vehicleType: normalizedPayload.vehicleType,
         licensePlate: normalizedPayload.licensePlate
       },
@@ -154,7 +156,7 @@ const registerCourier = async (payload) => {
 
     const bankAccount = await bankAccountModel.createBankAccount(
       {
-        courierId: courier.id,
+        courierId: createdCourier.id,
         bankId: bank.id,
         accountType: normalizedPayload.bankAccountType,
         accountNumber: normalizedPayload.accountNumber
@@ -173,7 +175,14 @@ const registerCourier = async (payload) => {
   });
 
   return {
-    message: 'Repartidor registrado exitosamente. Tu cuenta esta activa.'
+    message: 'Repartidor registrado exitosamente. Tu cuenta esta activa.',
+    id: createdUser.id,
+    id_usuario: createdUser.id,
+    userId: createdUser.id,
+    email: normalizedPayload.email,
+    rol: 'repartidor',
+    role: 'repartidor',
+    courierId: createdCourier.id
   };
 };
 

@@ -106,7 +106,12 @@ const registerRestaurant = async (payload) => {
 
   return {
     message: 'Restaurante registrado exitosamente.',
+    id: createdUser.id,
+    id_usuario: createdUser.id,
     userId: createdUser.id,
+    email: owner.email,
+    rol: 'restaurante',
+    role: 'restaurante',
     restaurantId: createdRestaurant.id
   };
 };

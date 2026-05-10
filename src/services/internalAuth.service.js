@@ -29,11 +29,14 @@ const verifyUser = async (payload) => {
   }
 
   const response = {
+    id: user.id,
+    id_usuario: user.id,
     userId: user.id,
     email: user.correo,
     firstName: user.nombre,
     lastName: user.apellido,
     phone: user.telefono,
+    rol: user.role,
     role: user.role,
     activo: user.activo,
     verificado: user.verificado
