@@ -72,6 +72,33 @@ const createUnlockRequest = async (req, res, next) => {
   }
 };
 
+const listInternal = async (req, res, next) => {
+  try {
+    const result = await courierService.listInternalCouriers(req.query);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getInternalById = async (req, res, next) => {
+  try {
+    const result = await courierService.getInternalCourier(req.params.courierId);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateInternalState = async (req, res, next) => {
+  try {
+    const result = await courierService.updateInternalCourierState(req.params.courierId, req.body);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   getAccountStatus,
@@ -80,5 +107,8 @@ module.exports = {
   updateAvailability,
   getProfile,
   updateProfile,
-  createUnlockRequest
+  createUnlockRequest,
+  listInternal,
+  getInternalById,
+  updateInternalState
 };

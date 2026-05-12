@@ -4,11 +4,13 @@ const courierModel = require('../models/courier.model');
 const bankAccountModel = require('../models/bankAccount.model');
 const { hashPassword } = require('../helpers/password.helper');
 const { maskAccountNumber } = require('../helpers/card.helper');
-const { BadRequestError } = require('../utils/errors');
+const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 const VALID_VEHICLE_TYPES = new Set(['MOTORCYCLE', 'BICYCLE', 'CAR']);
 const VALID_BANK_ACCOUNT_TYPES = new Set(['MONETARY', 'SAVINGS']);
 const VALID_OPERATIONAL_STATUSES = new Set(['AVAILABLE', 'INACTIVE']);
+const VALID_INTERNAL_OPERATIONAL_STATUSES = new Set(['AVAILABLE', 'INACTIVE', 'OCCUPIED']);
+const VALID_ASSIGNMENT_MODULES = new Set(['logistica', 'paqueteria']);
 const VALID_ACCOUNT_STATUSES = new Set(['PENDING_REVIEW', 'ACTIVE', 'BLOCKED', 'SUSPENDED_DEBT']);
 
 const requiredFields = [
@@ -330,6 +332,94 @@ const createUnlockRequest = async (userId, payload) => {
   };
 };
 
+const mapInternalCourier = (courier) => ({
+  id: courier.courier_id,
+  courierId: courier.courier_id,
+  userId: courier.user_id,
+  firstName: courier.first_name,
+  lastName: courier.last_name,
+  email: courier.email,
+  phone: courier.phone,
+  cui: courier.cui,
+  active: courier.user_active,
+  accountStatus: courier.account_status,
+  operationalStatus: courier.operational_status,
+  estado_operativo: courier.operational_status,
+  activeModule: courier.active_module,
+  modulo_activo: courier.active_module,
+  activeDeliveryId: courier.active_delivery_id,
+  entrega_id: courier.active_delivery_id,
+  vehicleType: courier.vehicle_type,
+  licensePlate: courier.license_plate
+});
+
+const normalizeAssignmentModule = (module) => module?.trim().toLowerCase();
+
+const listInternalCouriers = async (query = {}) => {
+  const available = query.available === 'true' || query.disponible === 'true';
+  const module = normalizeAssignmentModule(query.module || query.modulo);
+
+  if (module && !VALID_ASSIGNMENT_MODULES.has(module)) {
+    throw new BadRequestError('El modulo no es valido.');
+  }
+
+  const couriers = await courierModel.listForAssignment({ available, module });
+
+  return couriers.map(mapInternalCourier);
+};
+
+const getInternalCourier = async (courierId) => {
+  const courier = await courierModel.findInternalByCourierId(courierId);
+
+  if (!courier) {
+    throw new NotFoundError('Repartidor no encontrado.');
+  }
+
+  return mapInternalCourier(courier);
+};
+
+const updateInternalCourierState = async (courierId, payload = {}) => {
+  const requestedStatus = payload.operationalStatus || payload.estado_operativo;
+  const operationalStatus = requestedStatus?.trim().toUpperCase();
+  const activeModule = normalizeAssignmentModule(payload.activeModule || payload.modulo_activo);
+  const activeDeliveryId = payload.activeDeliveryId || payload.entrega_id;
+
+  if (!VALID_INTERNAL_OPERATIONAL_STATUSES.has(operationalStatus)) {
+    throw new BadRequestError('El estado operativo no es valido.');
+  }
+
+  if (operationalStatus === 'OCCUPIED') {
+    if (!activeModule || !VALID_ASSIGNMENT_MODULES.has(activeModule)) {
+      throw new BadRequestError('modulo_activo es requerido y debe ser logistica o paqueteria.');
+    }
+
+    if (!activeDeliveryId) {
+      throw new BadRequestError('entrega_id es requerido cuando el repartidor queda ocupado.');
+    }
+  }
+
+  const nextActiveModule = operationalStatus === 'OCCUPIED' ? activeModule : null;
+  const nextActiveDeliveryId = operationalStatus === 'OCCUPIED' ? String(activeDeliveryId) : null;
+  const updated = await courierModel.setAssignmentState({
+    courierId,
+    operationalStatus,
+    activeModule: nextActiveModule,
+    activeDeliveryId: nextActiveDeliveryId
+  });
+
+  if (!updated) {
+    const existing = await courierModel.findInternalByCourierId(courierId);
+
+    if (!existing) {
+      throw new NotFoundError('Repartidor no encontrado.');
+    }
+
+    throw new BadRequestError('El repartidor no esta disponible para asignacion.');
+  }
+
+  return getInternalCourier(courierId);
+};
+
 module.exports = {
   registerCourier,
   getAccountStatus,
@@ -338,5 +428,8 @@ module.exports = {
   updateAvailability,
   getProfile,
   updateProfile,
-  createUnlockRequest
+  createUnlockRequest,
+  listInternalCouriers,
+  getInternalCourier,
+  updateInternalCourierState
 };

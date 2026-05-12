@@ -119,6 +119,99 @@ const updateProfileByUserId = async (usuarioId, profile) => db.withTransaction(a
   return courier;
 });
 
+const listForAssignment = async ({ available, module }) => {
+  const filters = ['u.activo = true'];
+  const params = [];
+
+  if (available === true) {
+    filters.push("c.account_status = 'ACTIVE'");
+    filters.push("c.operational_status = 'AVAILABLE'");
+    filters.push('c.active_module IS NULL');
+    filters.push('c.active_delivery_id IS NULL');
+  }
+
+  if (module) {
+    params.push(module);
+    filters.push(`(c.active_module IS NULL OR c.active_module = $${params.length})`);
+  }
+
+  const result = await db.query(
+    `SELECT
+      u.id AS user_id,
+      u.nombre AS first_name,
+      u.apellido AS last_name,
+      u.correo AS email,
+      u.telefono AS phone,
+      u.activo AS user_active,
+      c.id AS courier_id,
+      c.cui,
+      c.account_status,
+      c.operational_status,
+      c.active_module,
+      c.active_delivery_id,
+      cv.vehicle_type,
+      cv.license_plate
+    FROM usuarios u
+    INNER JOIN couriers c ON c.usuario_id = u.id
+    LEFT JOIN courier_vehicles cv ON cv.courier_id = c.id AND cv.activo = true
+    WHERE ${filters.join(' AND ')}
+    ORDER BY c.id ASC`,
+    params
+  );
+
+  return result.rows;
+};
+
+const findInternalByCourierId = async (courierId) => {
+  const result = await db.query(
+    `SELECT
+      u.id AS user_id,
+      u.nombre AS first_name,
+      u.apellido AS last_name,
+      u.correo AS email,
+      u.telefono AS phone,
+      u.activo AS user_active,
+      c.id AS courier_id,
+      c.cui,
+      c.account_status,
+      c.operational_status,
+      c.active_module,
+      c.active_delivery_id,
+      cv.vehicle_type,
+      cv.license_plate
+    FROM usuarios u
+    INNER JOIN couriers c ON c.usuario_id = u.id
+    LEFT JOIN courier_vehicles cv ON cv.courier_id = c.id AND cv.activo = true
+    WHERE c.id = $1
+    ORDER BY cv.id ASC
+    LIMIT 1`,
+    [courierId]
+  );
+
+  return result.rows[0] || null;
+};
+
+const setAssignmentState = async ({ courierId, operationalStatus, activeModule, activeDeliveryId }) => {
+  const params = [courierId, operationalStatus, activeModule, activeDeliveryId];
+  const availableGuard = operationalStatus === 'OCCUPIED'
+    ? "AND account_status = 'ACTIVE' AND operational_status = 'AVAILABLE' AND active_module IS NULL AND active_delivery_id IS NULL"
+    : '';
+
+  const result = await db.query(
+    `UPDATE couriers
+    SET operational_status = $2,
+      active_module = $3,
+      active_delivery_id = $4,
+      fecha_actualizacion = CURRENT_TIMESTAMP
+    WHERE id = $1
+      ${availableGuard}
+    RETURNING *`,
+    params
+  );
+
+  return result.rows[0] || null;
+};
+
 const createUnlockRequest = async (courierId, reason) => {
   const result = await db.query(
     `INSERT INTO unlock_requests (courier_id, reason)
@@ -191,6 +284,9 @@ module.exports = {
   findProfileByUserId,
   updateAvailabilityByUserId,
   updateProfileByUserId,
+  listForAssignment,
+  findInternalByCourierId,
+  setAssignmentState,
   createUnlockRequest,
   findByCui,
   findVehicleByLicensePlate,
