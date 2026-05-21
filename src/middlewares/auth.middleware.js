@@ -64,7 +64,39 @@ const requireRestaurantUser = async (req, res, next) => {
   }
 };
 
+const requireCliente = async (req, res, next) => {
+  try {
+    const authorization = req.headers.authorization || '';
+    const [scheme, token] = authorization.split(' ');
+    const developmentUserId = req.headers['x-user-id'];
+
+    if (config.env !== 'production' && developmentUserId) {
+      req.user = {
+        user_id: Number(developmentUserId),
+        role: 'cliente'
+      };
+      return next();
+    }
+
+    if (scheme !== 'Bearer' || !token) {
+      throw new UnauthorizedError('Token de autenticacion requerido.');
+    }
+
+    const user = await brokerService.validateToken(token);
+
+    if (user.role !== 'cliente') {
+      throw new ForbiddenError('El usuario no tiene permisos de cliente.');
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   requireCourier,
-  requireRestaurantUser
+  requireRestaurantUser,
+  requireCliente
 };
