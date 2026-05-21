@@ -9,6 +9,17 @@ const verifyUser = async (req, res, next) => {
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const result = await internalAuthService.getUserById(userId);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
-  verifyUser
+  verifyUser,
+  getUserById
 };

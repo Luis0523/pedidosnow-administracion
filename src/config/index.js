@@ -6,6 +6,12 @@ const config = {
   version: process.env.APP_VERSION || 'V1.1',
   brokerUrl: process.env.BROKER_URL || 'http://localhost:3000',
   passwordSaltRounds: Number(process.env.PASSWORD_SALT_ROUNDS || 10),
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    folder: process.env.CLOUDINARY_FOLDER || 'pedidos-administracion'
+  },
   db: process.env.DATABASE_URL
     ? {
         connectionString: process.env.DATABASE_URL,

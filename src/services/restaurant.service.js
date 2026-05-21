@@ -1,6 +1,7 @@
 const { withTransaction } = require('../db');
 const usuarioModel = require('../models/usuario.model');
 const restaurantModel = require('../models/restaurant.model');
+const cloudinaryService = require('./cloudinary.service');
 const { hashPassword } = require('../helpers/password.helper');
 const { BadRequestError, ForbiddenError, NotFoundError } = require('../utils/errors');
 
@@ -126,8 +127,30 @@ const listMyRestaurants = async (userId) => {
       descripcion: restaurant.descripcion,
       telefono: restaurant.telefono,
       direccion: restaurant.direccion,
+      logoUrl: restaurant.logo_url,
       tipoAcceso: restaurant.tipo_acceso
     }))
+  };
+};
+
+const updateRestaurantLogo = async (restaurantId, userId, payload = {}) => {
+  await ensureRestaurantAccess(restaurantId, userId, MANAGE_ACCESS);
+
+  const upload = await cloudinaryService.uploadImage({
+    imageBase64: payload.imageBase64 || payload.logoBase64,
+    folder: 'restaurants/logo',
+    publicId: String(restaurantId)
+  });
+
+  const restaurant = await restaurantModel.updateLogoUrl(restaurantId, upload.url);
+
+  if (!restaurant) {
+    throw new NotFoundError('Restaurante no encontrado.');
+  }
+
+  return {
+    message: 'Logo del restaurante actualizado correctamente.',
+    logoUrl: upload.url
   };
 };
 
@@ -300,6 +323,7 @@ module.exports = {
   listMyRestaurants,
   getRestaurant,
   updateRestaurant,
+  updateRestaurantLogo,
   setRestaurantActive,
   listRestaurantUsers,
   createRestaurantCollaborator,

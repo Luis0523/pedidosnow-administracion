@@ -2,6 +2,7 @@ const { withTransaction } = require('../db');
 const usuarioModel = require('../models/usuario.model');
 const courierModel = require('../models/courier.model');
 const bankAccountModel = require('../models/bankAccount.model');
+const cloudinaryService = require('./cloudinary.service');
 const { hashPassword } = require('../helpers/password.helper');
 const { maskAccountNumber } = require('../helpers/card.helper');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
@@ -105,6 +106,18 @@ const registerCourier = async (payload) => {
   await ensureUniqueCourierData(normalizedPayload);
 
   const passwordHash = await hashPassword(normalizedPayload.passwordRaw);
+  const [dpiPhotoUpload, profilePhotoUpload] = await Promise.all([
+    cloudinaryService.uploadImage({
+      imageBase64: normalizedPayload.dpiPhotoBase64,
+      folder: 'couriers/dpi',
+      publicId: normalizedPayload.cui
+    }),
+    cloudinaryService.uploadImage({
+      imageBase64: normalizedPayload.profilePhotoBase64,
+      folder: 'couriers/profile',
+      publicId: normalizedPayload.cui
+    })
+  ]);
   let createdUser;
   let createdCourier;
 
@@ -142,10 +155,14 @@ const registerCourier = async (payload) => {
         address: normalizedPayload.address,
         birthDate: normalizedPayload.birthDate,
         dpiPhotoBase64: normalizedPayload.dpiPhotoBase64,
-        profilePhotoBase64: normalizedPayload.profilePhotoBase64
+        profilePhotoBase64: normalizedPayload.profilePhotoBase64,
+        dpiPhotoUrl: dpiPhotoUpload.url,
+        profilePhotoUrl: profilePhotoUpload.url
       },
       client
     );
+
+    await usuarioModel.updateProfileImageUrl(createdUser.id, profilePhotoUpload.url, client);
 
     await courierModel.createVehicle(
       {
@@ -182,6 +199,7 @@ const registerCourier = async (payload) => {
     id_usuario: createdUser.id,
     userId: createdUser.id,
     email: normalizedPayload.email,
+    profilePhotoUrl: profilePhotoUpload.url,
     rol: 'repartidor',
     role: 'repartidor',
     courierId: createdCourier.id
@@ -268,10 +286,38 @@ const getProfile = async (userId) => {
     nit: profile.nit,
     dpiPhotoBase64: profile.dpi_photo_base64,
     profilePhotoBase64: profile.profile_photo_base64,
+    dpiPhotoUrl: profile.dpi_photo_url,
+    profilePhotoUrl: profile.profile_photo_url,
+    profileImageUrl: profile.profile_image_url,
     accountStatus: profile.account_status,
     operationalStatus: profile.operational_status,
     vehicleType: profile.vehicle_type,
     licensePlate: profile.license_plate
+  };
+};
+
+const updateProfilePhoto = async (userId, payload = {}) => {
+  const courier = await courierModel.findByUserId(userId);
+
+  if (!courier) {
+    throw new BadRequestError('No existe un perfil de repartidor para este usuario.');
+  }
+
+  const upload = await cloudinaryService.uploadImage({
+    imageBase64: payload.imageBase64 || payload.profilePhotoBase64,
+    folder: 'couriers/profile',
+    publicId: courier.cui
+  });
+
+  await withTransaction(async (client) => {
+    await courierModel.updateProfilePhotoUrlByUserId(userId, upload.url, client);
+    await usuarioModel.updateProfileImageUrl(userId, upload.url, client);
+  });
+
+  return {
+    message: 'Foto de perfil actualizada correctamente.',
+    profilePhotoUrl: upload.url,
+    profileImageUrl: upload.url
   };
 };
 
@@ -428,6 +474,7 @@ module.exports = {
   updateAvailability,
   getProfile,
   updateProfile,
+  updateProfilePhoto,
   createUnlockRequest,
   listInternalCouriers,
   getInternalCourier,

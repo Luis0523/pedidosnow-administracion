@@ -53,6 +53,9 @@ const findProfileByUserId = async (usuarioId) => {
       c.birth_date,
       c.dpi_photo_base64,
       c.profile_photo_base64,
+      c.dpi_photo_url,
+      c.profile_photo_url,
+      u.profile_image_url,
       c.account_status,
       c.operational_status,
       cv.id AS vehicle_id,
@@ -245,9 +248,11 @@ const create = async (courier, client) => {
       birth_date,
       dpi_photo_base64,
       profile_photo_base64,
+      dpi_photo_url,
+      profile_photo_url,
       account_status,
       operational_status
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'ACTIVE', 'INACTIVE')
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'ACTIVE', 'INACTIVE')
     RETURNING *`,
     [
       courier.usuarioId,
@@ -258,7 +263,9 @@ const create = async (courier, client) => {
       courier.address,
       courier.birthDate,
       courier.dpiPhotoBase64,
-      courier.profilePhotoBase64
+      courier.profilePhotoBase64,
+      courier.dpiPhotoUrl,
+      courier.profilePhotoUrl
     ]
   );
 
@@ -276,6 +283,19 @@ const createVehicle = async (vehicle, client) => {
   return result.rows[0];
 };
 
+const updateProfilePhotoUrlByUserId = async (usuarioId, profilePhotoUrl, client = db) => {
+  const result = await client.query(
+    `UPDATE couriers
+    SET profile_photo_url = $2,
+      fecha_actualizacion = CURRENT_TIMESTAMP
+    WHERE usuario_id = $1
+    RETURNING *`,
+    [usuarioId, profilePhotoUrl]
+  );
+
+  return result.rows[0] || null;
+};
+
 module.exports = {
   findByUserId,
   findAccountStatusByUserId,
@@ -291,5 +311,6 @@ module.exports = {
   findByCui,
   findVehicleByLicensePlate,
   create,
-  createVehicle
+  createVehicle,
+  updateProfilePhotoUrlByUserId
 };

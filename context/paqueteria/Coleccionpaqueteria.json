@@ -1,0 +1,1573 @@
+{
+	"info": {
+		"_postman_id": "1ac1fa0f-ff95-4b61-aeaf-541c929e9470",
+		"name": "Paqueteria endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "53221585",
+		"_collection_link": "https://manudomavi-130104.postman.co/workspace/Manuel-Dominguez's-Workspace~be1cb82f-ebf8-4ab4-8157-b2783292700a/collection/53221585-1ac1fa0f-ff95-4b61-aeaf-541c929e9470?action=share&source=collection_link&creator=53221585"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "GetUsuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsuariobyID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/2",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "users", "2"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Roberto Méndez\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Juan Pérez Actualizado\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "users", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "users", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Couriers",
+			"item": [
+				{
+					"name": "GetCouriers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/couriers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Couriers disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/couriers/available",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers", "available"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCourierbyId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Courier Status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"statusName\": \"Ocupado\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/couriers/3/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers", "3", "status"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCourier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Repartidor Nuevo\",\n  \"status\": true,\n  \"statusName\": \"Disponible\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/couriers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCourier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"José García Editado\",\n  \"status\": true,\n  \"statusName\": \"Ocupado\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCourier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "couriers", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "GetAddress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/addresses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "addresses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAddressbyId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "addresses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAddress",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idUser\": 2,\n  \"latitude\": 14.85020000,\n  \"longitude\": -91.53060000,\n  \"address\": \"Zona 1, Xela, casa amarilla\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addresses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "addresses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAddress",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idUser\": 1,\n  \"latitude\": 14.83479999,\n  \"longitude\": -91.51810000,\n  \"address\": \"Zona 3, Quetzaltenango, portón negro\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "addresses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAddress",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "addresses", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prices",
+			"item": [
+				{
+					"name": "GetPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/prices",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "prices"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPricesbyId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "prices", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePrice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 45.50,\n  \"criteria\": \"Paquete mediano express\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/prices",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "prices"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePrice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 30.00,\n  \"criteria\": \"Paquete pequeño actualizado\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "prices", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePrice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "prices", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipments",
+			"item": [
+				{
+					"name": "GetShipments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/shipments",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "shipments"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShipmentsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "shipments", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateShipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deliveryInstructions\": \"Entregar en recepción\",\n  \"total\": 80.00,\n  \"shipmentStatus\": \"pending\",\n  \"chargeType\": \"cash\",\n  \"estimatedDeliveryTime\": \"2026-03-20 14:30:00\",\n  \"senderId\": 1,\n  \"receiverId\": 2,\n  \"courierId\": 1,\n  \"invoiceSeries\": \"A-007\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/shipments",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "shipments"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateShipment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deliveryInstructions\": \"Entregar con guardia\",\n  \"total\": 95.00,\n  \"shipmentStatus\": \"assigned\",\n  \"chargeType\": \"card\",\n  \"estimatedDeliveryTime\": \"2026-03-20 16:00:00\",\n  \"senderId\": 1,\n  \"receiverId\": 2,\n  \"courierId\": 2,\n  \"invoiceSeries\": \"A-001-UPD\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "shipments", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteShipment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "shipments", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Packages",
+			"item": [
+				{
+					"name": "GetPackages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/packages",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "packages"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPackagesById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "packages", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePackages",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idShipment\": 2,\n  \"description\": \"Caja con ropa\",\n  \"size\": \"Mediano\",\n  \"weight\": 3.50,\n  \"subtotal\": 40.00,\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/packages",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "packages"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePackage",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idShipment\": 1,\n  \"description\": \"Documentos importantes actualizados\",\n  \"size\": \"Pequeño\",\n  \"weight\": 0.75,\n  \"subtotal\": 30.00,\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "packages", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePackage",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "packages", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courier Status type",
+			"item": [
+				{
+					"name": "Get All courier status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/courier-status-types",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-status-types"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get courier status by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/courier-status-types/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-status-types", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Courier status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"En descanso\",\n  \"description\": \"Repartidor en pausa temporal\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courier-status-types",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-status-types"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update courier status type",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Disponible\",\n  \"description\": \"Repartidor listo para recibir pedidos\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courier-status-types/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-status-types", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete courier status type",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/courier-status-types/5",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-status-types", "5"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courier statuses",
+			"item": [
+				{
+					"name": "Get all courier states",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/courier-statuses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-statuses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get courier status by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/courier-statuses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-statuses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create courier status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idCourier\": 1,\n  \"idStatus\": 1\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courier-statuses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-statuses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update courier status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idCourier\": 1,\n  \"idStatus\": 2\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/courier-statuses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["api", "courier-statuses", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - users (admin)",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/users/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "users", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo Usuario\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Usuario Actualizado\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/users/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "users", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/users/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "users", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - couriers (roles varios)",
+			"item": [
+				{
+					"name": "Get All Couriers (admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Couriers Disponibles (cliente, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers/available",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers", "available"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Courier by ID (repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Courier (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nuevo Repartidor\",\n  \"status\": true,\n  \"statusName\": \"Disponible\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Courier (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Repartidor Actualizado\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Courier Status (repartidor, admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"statusName\": \"Ocupado\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers/1/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers", "1", "status"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Courier (admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/couriers/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "couriers", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - addresses (cliente, admin)",
+			"item": [
+				{
+					"name": "Get All Addresses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/addresses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "addresses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "addresses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idUser\": 1,\n  \"latitude\": 14.64072,\n  \"longitude\": -90.51327,\n  \"address\": \"Zona 10, Guatemala, edificio azul\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/addresses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "addresses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idUser\": 1,\n  \"latitude\": 14.83479999,\n  \"longitude\": -91.51810000,\n  \"address\": \"Zona 3, Quetzaltenango, portón negro\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "addresses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/addresses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "addresses", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - prices (roles varios)",
+			"item": [
+				{
+					"name": "Get All Prices (cliente, repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/prices",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "prices"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Price by ID (cliente, repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "prices", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Price (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 55.00,\n  \"criteria\": \"Paquete grande\",\n  \"status\": true\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/prices",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "prices"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Price (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 50.00,\n  \"criteria\": \"Paquete grande actualizado\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "prices", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Price (admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/prices/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "prices", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - shipments (roles varios)",
+			"item": [
+				{
+					"name": "Get All Shipments (admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/shipments",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "shipments"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipment by ID (cliente, repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "shipments", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Shipment (cliente)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"deliveryInstructions\": \"Entregar en recepción\",\n  \"total\": 80.00,\n  \"shipmentStatus\": \"pending\",\n  \"chargeType\": \"cash\",\n  \"estimatedDeliveryTime\": \"2026-06-01 14:30:00\",\n  \"senderId\": 1,\n  \"receiverId\": 2,\n  \"courierId\": 1,\n  \"invoiceSeries\": \"A-010\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/shipments",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "shipments"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shipment (repartidor, admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"shipmentStatus\": \"in_transit\",\n  \"chargeType\": \"card\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "shipments", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shipment (admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/shipments/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "shipments", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - packages (roles varios)",
+			"item": [
+				{
+					"name": "Get All Packages (cliente, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/packages",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "packages"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Package by ID (cliente, repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "packages", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Package (cliente, admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idShipment\": 1,\n  \"description\": \"Caja con electrodomésticos\",\n  \"size\": \"Grande\",\n  \"weight\": 8.00,\n  \"subtotal\": 60.00\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/packages",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "packages"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Package (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Caja con electrodomésticos actualizada\",\n  \"weight\": 9.50\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "packages", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Package (admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/packages/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "packages", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - courier-status-types (repartidor, admin)",
+			"item": [
+				{
+					"name": "Get All Status Types (repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-status-types",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-status-types"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Status Type by ID (repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-status-types/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-status-types", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Status Type (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"En descanso\",\n  \"description\": \"Repartidor en pausa temporal\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-status-types",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-status-types"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status Type (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Disponible\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-status-types/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-status-types", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Status Type (admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-status-types/5",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-status-types", "5"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "paqueteria - courier-statuses (repartidor, admin)",
+			"item": [
+				{
+					"name": "Get All Courier Statuses (repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-statuses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-statuses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Courier Status by ID (repartidor, admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-statuses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-statuses", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Courier Status (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idCourier\": 1,\n  \"idStatus\": 1\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-statuses",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-statuses"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Courier Status (admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idCourier\": 1,\n  \"idStatus\": 2\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "http://localhost:3000/paqueteria/courier-statuses/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["paqueteria", "courier-statuses", "1"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

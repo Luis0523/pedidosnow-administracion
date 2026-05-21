@@ -63,6 +63,15 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
+const updateProfilePhoto = async (req, res, next) => {
+  try {
+    const result = await courierService.updateProfilePhoto(req.user.user_id, req.body);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createUnlockRequest = async (req, res, next) => {
   try {
     const result = await courierService.createUnlockRequest(req.user.user_id, req.body);
@@ -107,6 +116,7 @@ module.exports = {
   updateAvailability,
   getProfile,
   updateProfile,
+  updateProfilePhoto,
   createUnlockRequest,
   listInternal,
   getInternalById,

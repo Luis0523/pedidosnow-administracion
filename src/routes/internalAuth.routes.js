@@ -9,6 +9,7 @@ router.post('/auth/verify-user', internalAuthController.verifyUser);
 router.get('/couriers', courierController.listInternal);
 router.get('/couriers/:courierId', courierController.getInternalById);
 router.patch('/couriers/:courierId/status', courierController.updateInternalState);
+router.get('/users/:userId', internalAuthController.getUserById);
 router.get('/restaurants/:restaurantId/users/:userId/access', restaurantController.validateAccess);
 
 module.exports = router;

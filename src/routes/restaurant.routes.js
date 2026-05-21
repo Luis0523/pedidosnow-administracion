@@ -8,6 +8,7 @@ router.post('/register', restaurantController.register);
 router.get('/me', requireRestaurantUser, restaurantController.listMine);
 router.get('/:restaurantId', requireRestaurantUser, restaurantController.getById);
 router.put('/:restaurantId', requireRestaurantUser, restaurantController.update);
+router.post('/:restaurantId/logo', requireRestaurantUser, restaurantController.updateLogo);
 router.patch('/:restaurantId/status', requireRestaurantUser, restaurantController.setActive);
 router.get('/:restaurantId/users', requireRestaurantUser, restaurantController.listUsers);
 router.post('/:restaurantId/users', requireRestaurantUser, restaurantController.createCollaborator);

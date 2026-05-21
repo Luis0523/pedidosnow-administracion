@@ -11,6 +11,7 @@ router.get('/me/availability', requireCourier, courierController.getAvailability
 router.patch('/me/availability', requireCourier, courierController.updateAvailability);
 router.get('/me', requireCourier, courierController.getProfile);
 router.put('/me', requireCourier, courierController.updateProfile);
+router.post('/me/profile-photo', requireCourier, courierController.updateProfilePhoto);
 router.post('/me/unlock-request', requireCourier, courierController.createUnlockRequest);
 
 module.exports = router;

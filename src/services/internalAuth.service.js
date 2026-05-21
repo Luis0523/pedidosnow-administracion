@@ -2,7 +2,7 @@ const usuarioModel = require('../models/usuario.model');
 const courierModel = require('../models/courier.model');
 const restaurantModel = require('../models/restaurant.model');
 const { comparePassword } = require('../helpers/password.helper');
-const { UnauthorizedError } = require('../utils/errors');
+const { UnauthorizedError, NotFoundError } = require('../utils/errors');
 
 const verifyUser = async (payload) => {
   const email = payload?.email?.trim().toLowerCase();
@@ -67,6 +67,21 @@ const verifyUser = async (payload) => {
   return response;
 };
 
+const getUserById = async (userId) => {
+  const user = await usuarioModel.findById(userId);
+
+  if (!user) {
+    throw new NotFoundError('Usuario no encontrado.');
+  }
+
+  return {
+    id: user.id,
+    rol: user.rol,
+    nombre: `${user.nombre}${user.apellido ? ` ${user.apellido}` : ''}`
+  };
+};
+
 module.exports = {
-  verifyUser
+  verifyUser,
+  getUserById
 };

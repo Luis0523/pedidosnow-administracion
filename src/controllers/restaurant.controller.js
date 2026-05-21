@@ -36,6 +36,15 @@ const update = async (req, res, next) => {
   }
 };
 
+const updateLogo = async (req, res, next) => {
+  try {
+    const result = await restaurantService.updateRestaurantLogo(req.params.restaurantId, req.user.user_id, req.body);
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const setActive = async (req, res, next) => {
   try {
     const result = await restaurantService.setRestaurantActive(req.params.restaurantId, req.user.user_id, req.body);
@@ -95,6 +104,7 @@ module.exports = {
   listMine,
   getById,
   update,
+  updateLogo,
   setActive,
   listUsers,
   createCollaborator,

@@ -37,6 +37,7 @@ const findByUserId = async (userId) => {
       r.descripcion,
       r.telefono,
       r.direccion,
+      r.logo_url,
       r.activo,
       ru.tipo_acceso
     FROM restaurantes r
@@ -128,6 +129,19 @@ const updateRestaurantUserAccess = async (restaurantId, userId, accessType, acti
   return result.rows[0] || null;
 };
 
+const updateLogoUrl = async (restaurantId, logoUrl) => {
+  const result = await db.query(
+    `UPDATE restaurantes
+    SET logo_url = $2,
+      fecha_actualizacion = CURRENT_TIMESTAMP
+    WHERE id = $1
+    RETURNING *`,
+    [restaurantId, logoUrl]
+  );
+
+  return result.rows[0] || null;
+};
+
 module.exports = {
   VALID_ACCESS,
   createRestaurant,
@@ -138,5 +152,6 @@ module.exports = {
   findUsersByRestaurantId,
   updateRestaurant,
   setRestaurantActive,
-  updateRestaurantUserAccess
+  updateRestaurantUserAccess,
+  updateLogoUrl
 };

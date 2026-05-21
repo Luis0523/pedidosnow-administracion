@@ -57,9 +57,41 @@ const create = async (usuario, client) => {
   return result.rows[0];
 };
 
+const findById = async (id) => {
+  const result = await db.query(
+    `SELECT
+      u.id,
+      u.nombre,
+      u.apellido,
+      u.correo,
+      r.codigo AS rol
+    FROM usuarios u
+    INNER JOIN roles r ON r.id = u.rol_id
+    WHERE u.id = $1`,
+    [id]
+  );
+
+  return result.rows[0] || null;
+};
+
+const updateProfileImageUrl = async (usuarioId, profileImageUrl, client = db) => {
+  const result = await client.query(
+    `UPDATE usuarios
+    SET profile_image_url = $2,
+      fecha_actualizacion = CURRENT_TIMESTAMP
+    WHERE id = $1
+    RETURNING *`,
+    [usuarioId, profileImageUrl]
+  );
+
+  return result.rows[0] || null;
+};
+
 module.exports = {
   findByEmail,
   findAuthUserByEmail,
   findRoleByCode,
-  create
+  findById,
+  create,
+  updateProfileImageUrl
 };
