@@ -1,3 +1,4 @@
+const db = require('../db');
 const usuarioModel = require('../models/usuario.model');
 const { hashPassword } = require('../helpers/password.helper');
 const { BadRequestError } = require('../utils/errors');
@@ -53,7 +54,7 @@ const registerCliente = async (payload) => {
     correo: normalized.email,
     telefono: normalized.phone,
     passwordHash
-  });
+  }, db);
 
   return {
     message: 'Cliente registrado exitosamente.',
