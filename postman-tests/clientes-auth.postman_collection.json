@@ -1,0 +1,89 @@
+{
+  "info": {
+    "name": "Administracion - Clientes (Register + Login)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "adminUrl", "value": "http://localhost:3005" },
+    { "key": "brokerUrl", "value": "http://localhost:3000" },
+    { "key": "clienteToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Registrar cliente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.collectionVariables.set('clienteId', jsonData.id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"firstName\": \"Ana\",\n  \"lastName\": \"Pérez\",\n  \"email\": \"ana.perez.{{$timestamp}}@test.com\",\n  \"phone\": \"5555-0303\",\n  \"passwordRaw\": \"ClienteTest123!\"\n}"
+        },
+        "url": {
+          "raw": "{{adminUrl}}/api/clientes/register",
+          "host": ["{{adminUrl}}"],
+          "path": ["api", "clientes", "register"]
+        }
+      }
+    },
+    {
+      "name": "Login cliente via Broker",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "if (jsonData.success) {",
+              "  pm.collectionVariables.set('clienteToken', jsonData.data.token);",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ana.perez.{{$timestamp}}@test.com\",\n  \"password\": \"ClienteTest123!\"\n}"
+        },
+        "url": {
+          "raw": "{{brokerUrl}}/api/auth/login",
+          "host": ["{{brokerUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Obtener perfil cliente",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{clienteToken}}" }
+        ],
+        "url": {
+          "raw": "{{adminUrl}}/api/clientes/me",
+          "host": ["{{adminUrl}}"],
+          "path": ["api", "clientes", "me"]
+        }
+      }
+    }
+  ]
+}
