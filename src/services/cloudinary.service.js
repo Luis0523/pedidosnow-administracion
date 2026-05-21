@@ -9,10 +9,8 @@ cloudinary.config({
   api_secret: config.cloudinary.apiSecret
 });
 
-const ensureConfigured = () => {
-  if (!config.cloudinary.cloudName || !config.cloudinary.apiKey || !config.cloudinary.apiSecret) {
-    throw new BadRequestError('Cloudinary no esta configurado. Define CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY y CLOUDINARY_API_SECRET.');
-  }
+const isConfigured = () => {
+  return !!(config.cloudinary.cloudName && config.cloudinary.apiKey && config.cloudinary.apiSecret);
 };
 
 const uploadImage = async ({ imageBase64, folder, publicId }) => {
@@ -20,7 +18,9 @@ const uploadImage = async ({ imageBase64, folder, publicId }) => {
     throw new BadRequestError('imageBase64 es requerido.');
   }
 
-  ensureConfigured();
+  if (!isConfigured()) {
+    return { url: null, publicId: null };
+  }
 
   const source = imageBase64.startsWith('data:')
     ? imageBase64
